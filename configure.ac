@@ -825,38 +825,6 @@ AS_IF([test "x$missing_mandatory" = "xyes"],
         AS_IF([test "x$has_wcslib" = "xno"],
               [ AS_ECHO([" - WCSLIB: http://www.atnf.csiro.au/people/mcalabre/WCS"]) ])
 
-        # Optional dependencies:
-        AS_IF([test "x$anywarnings" = xyes],
-              [
-                AS_ECHO([""])
-                AS_ECHO(["OPTIONAL warnings/dependencies (for improved functionality):"])
-                AS_IF([test "x$gsl_version_old" = "xyes"],
-                      [ AS_ECHO([" - Old GSL version: https://www.gnu.org/s/gsl"])                ])
-                AS_IF([test "x$has_libjpeg" = "xno"],
-                      [ AS_ECHO([" - Missing Libjpeg (JPEG files): http://ijg.org"])              ])
-                AS_IF([test "x$has_libtiff" = "xno"],
-                      [ AS_ECHO([" - Missing Libtiff (TIFF files): http://libtiff.maptools.org"]) ])
-                AS_IF([test "x$has_libgit2" = "x0"],
-                      [ AS_ECHO([" - Missing Libgit2: https://libgit2.org"])                      ])
-                AS_IF([test "x$has_curl" = "x0"],
-                      [ AS_ECHO([" - Missing cURL: https://curl.haxx.se"])                        ])
-dnl             AS_IF([test "x$has_numpy" = "x0"],
-dnl                   [ AS_ECHO([" - Missing Numpy (for Python wrappers): https://numpy.org"])    ])
-                AS_IF([test "x$has_ds9" = "xno"],
-                      [ AS_ECHO([" - Missing SAO DS9: https://sites.google.com/cfa.harvard.edu/saoimageds9"]) ])
-                AS_IF([test "x$has_topcat" = "xno"],
-                      [ AS_ECHO([" - Missing TOPCAT: http://www.star.bris.ac.uk/~mbt/topcat/"]) ])
-                AS_IF([test "x$usable_libtool" = "xno"],
-                      [ AS_ECHO([" - Unusable GNU Libtool: https://www.gnu.org/s/libtool"])
-                        AS_IF([test "x$has_gnulibtool" = "xyes"],
-                              [ AS_ECHO(["  -- GNU Libtool is present, tested shells not supported."])  ])
-                        AS_IF([test "x$has_libtool" = "xyes"],
-                              [ AS_ECHO(["  -- A libtool implementation was found, but it isn't GNU."]) ])
-                      ])
-                AS_IF([test "x$has_ghostscript" = "xno"],
-                      [ AS_ECHO([" - Missing GPL Ghostscript (v9.10 or later): https://www.ghostscript.com"])])
-              ])
-
         # Suggestions on fixing the problem.
         AS_ECHO([""])
         AS_ECHO(["You can use your package manager for easy and fast installation of all"])
@@ -879,6 +847,39 @@ dnl                   [ AS_ECHO([" - Missing Numpy (for Python wrappers): https:
         AC_MSG_ERROR([Mandatory dependency(s) missing, === SEE MESSAGE ABOVE ===.])
       ])
 
+
+# Optional dependencies:
+AS_IF([test "x$anywarnings" = xyes],
+      [
+        AS_ECHO([""])
+        AS_ECHO(["OPTIONAL warnings/dependencies (for improved functionality):"])
+        AS_IF([test "x$gsl_version_old" = "xyes"],
+              [ AS_ECHO([" - Old GSL version: https://www.gnu.org/s/gsl"])                ])
+        AS_IF([test "x$has_libjpeg" = "xno"],
+              [ AS_ECHO([" - Missing Libjpeg (JPEG files): http://ijg.org"])              ])
+        AS_IF([test "x$has_libtiff" = "xno"],
+              [ AS_ECHO([" - Missing Libtiff (TIFF files): http://libtiff.maptools.org"]) ])
+        AS_IF([test "x$has_libgit2" = "x0"],
+              [ AS_ECHO([" - Missing Libgit2: https://libgit2.org"])                      ])
+        AS_IF([test "x$has_curl" = "x0"],
+              [ AS_ECHO([" - Missing cURL: https://curl.haxx.se"])                        ])
+        AS_IF([test "x$has_numpy" = "x0"],
+              [ AS_ECHO([" - Missing Numpy (for Python wrappers): https://numpy.org"])    ])
+        AS_IF([test "x$has_ds9" = "xno"],
+              [ AS_ECHO([" - Missing SAO DS9: https://sites.google.com/cfa.harvard.edu/saoimageds9"]) ])
+        AS_IF([test "x$has_topcat" = "xno"],
+              [ AS_ECHO([" - Missing TOPCAT: http://www.star.bris.ac.uk/~mbt/topcat/"]) ])
+        AS_IF([test "x$usable_libtool" = "xno"],
+              [ AS_ECHO([" - Unusable GNU Libtool: https://www.gnu.org/s/libtool"])
+                AS_IF([test "x$has_gnulibtool" = "xyes"],
+                      [ AS_ECHO(["  -- GNU Libtool is present, tested shells not supported."])  ])
+                AS_IF([test "x$has_libtool" = "xyes"],
+                      [ AS_ECHO(["  -- A libtool implementation was found, but it isn't GNU."]) ])
+              ])
+        AS_IF([test "x$has_ghostscript" = "xno"],
+              [ AS_ECHO([" - Missing GPL Ghostscript (v9.10 or later): https://www.ghostscript.com"])])
+        AC_MSG_WARN([Optional dependency(s) missing, === SEE MESSAGE ABOVE ===.])
+      ])
 
 
 
