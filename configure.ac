@@ -76,6 +76,11 @@ LT_INIT
 
 
 
+AC_ARG_ENABLE(builddeps,
+              [AS_HELP_STRING([--enable-builddeps],
+                              [Build unfound dependencies])],
+              [AS_IF([test "x$enable_builddeps" != xno], [enable_builddeps=yes])],
+              [enable_builddeps=no])
 
 # Check the number of jobs. Depending on the operative system (GNU/Linux or
 # macOS), the way of getting the number of cores is different. If the
