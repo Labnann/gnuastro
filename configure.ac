@@ -79,7 +79,10 @@ LT_INIT
 AC_ARG_ENABLE(builddeps,
               [AS_HELP_STRING([--enable-builddeps],
                               [Build unfound dependencies])],
-              [AS_IF([test "x$enable_builddeps" != xno], [enable_builddeps=yes])],
+              [AS_IF([test "x$enable_builddeps" != xno], 
+                     [enable_builddeps=yes
+                      > contrib/to_build
+                      ])],
               [enable_builddeps=no])
 
 # Check the number of jobs. Depending on the operative system (GNU/Linux or
@@ -804,6 +807,11 @@ AS_IF([test "x$numpy_includedir" = x],
       [has_numpy=0], [has_numpy=1;])
 AC_SUBST(HAVE_PYTHON, [$has_numpy])
 AM_CONDITIONAL([COND_NUMPY], [test "x$numpy_includedir" != x])
+
+
+AC_DEFUN([ADD_TO_BUILD_LIST],[
+  echo $1 >> contrib/to_build
+])
 
 
 
