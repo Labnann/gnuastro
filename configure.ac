@@ -814,7 +814,21 @@ AC_DEFUN([ADD_TO_BUILD_LIST],[
 ])
 
 
+AS_IF([test "x$missing_mandatory" = "xyes" -a "x$enable_builddeps" = "xyes"],
+      [
+      AS_IF([test "x$has_gsl" = "xno"], [ ADD_TO_BUILD_LIST([gsl])])
+      AS_IF([test "x$has_libgit2" = "x0"], [ ADD_TO_BUILD_LIST([libgit2])])
+      AS_IF([test "x$has_cmath" = "xno"], [ ADD_TO_BUILD_LIST([cmath])])
+      AS_IF([test "x$has_wcslib" = "xno"], [ ADD_TO_BUILD_LIST([wcslib])])
+      AS_IF([test "x$has_cfitsio" = "xno"], [ ADD_TO_BUILD_LIST([cfitsio])])
+      AS_IF([test "x$has_libtiff" = "xno"], [ ADD_TO_BUILD_LIST([libtiff])])
+      AS_IF([test "x$has_libjpeg" = "xno"], [ ADD_TO_BUILD_LIST([libjpeg])])
+      AS_IF([test "x$has_gslcblas" = "xno"], [ ADD_TO_BUILD_LIST([gslcblas])])
 
+      AS_IF([test "x$has_curl" = "xno"], [ ADD_TO_BUILD_LIST([curl])])
+      AS_IF([test "x$has_ds9" = "xno"], [ ADD_TO_BUILD_LIST([ds9])])
+      AS_IF([test "x$has_topcat" = "xno"], [ ADD_TO_BUILD_LIST([topcat])])
+       ])
 
 
 # If any necessary dependency is missing inform the user and abort.
