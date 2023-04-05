@@ -1,0 +1,34 @@
+#!/bin/bash
+BOOTSTRAP_PATH="$( cd "$(dirname "$0")" ; pwd -P )"
+
+cat > Makefile << EOF
+CONTRIB_DIR = $BOOTSTRAP_PATH
+MAKEFLAGS += -j$CPUS
+CMAKEFLAGS += --parallel=$CPUS
+PREFIX=\$(abspath ./build)
+PATH=\${PREFIX}/bin:$PATH
+EOF
+
+mkdir -p $BOOTSTRAP_PATH/tarballs
+
+
+
+file="to_build"
+if [ -e $file ]
+then
+  for dependency in $(cat $file)
+  do
+    echo ".$dependency: .build$dependency" >> Makefile
+    TARGETS="$TARGETS .build$dependency"
+  done
+else
+  echo "$file not found. Run configure with --enable-builddeps"
+fi
+
+
+cat >> Makefile << EOF
+all: $TARGETS
+	@echo "All listed dependencies are built"
+
+include \$(CONTRIB_DIR)/tools.mak
+EOF
