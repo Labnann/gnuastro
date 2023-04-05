@@ -29,4 +29,6 @@ gsl: gsl-latest.tar.gz
 	$(call UNPACK,gsl-latest.tar.gz,gsl)
 
 .buildgsl: gsl
+	cd gsl && ./configure  && make -j$(nproc) && sudo  make install
+	cd $(CONTRIB_DIR) && touch .buildgsl
 		
