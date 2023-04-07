@@ -76,6 +76,14 @@ LT_INIT
 
 
 
+AC_ARG_ENABLE(builddeps,
+              [AS_HELP_STRING([--enable-builddeps],
+                              [Build unfound dependencies])],
+              [AS_IF([test "x$enable_builddeps" != xno], 
+                     [enable_builddeps=yes
+                      > contrib/to_build
+                      ])],
+              [enable_builddeps=no])
 
 # Check the number of jobs. Depending on the operative system (GNU/Linux or
 # macOS), the way of getting the number of cores is different. If the
@@ -801,7 +809,28 @@ AC_SUBST(HAVE_PYTHON, [$has_numpy])
 AM_CONDITIONAL([COND_NUMPY], [test "x$numpy_includedir" != x])
 
 
+AC_DEFUN([ADD_TO_BUILD_LIST],[
+  echo $1 >> contrib/to_build
+])
 
+
+AS_IF([test "x$missing_mandatory" = "xyes" -a "x$enable_builddeps" = "xyes"],
+      [
+      AS_IF([test "x$has_gsl" = "xno"], [ ADD_TO_BUILD_LIST([gsl])])
+      AS_IF([test "x$has_libgit2" = "x0"], [ ADD_TO_BUILD_LIST([libgit2])])
+      AS_IF([test "x$has_cmath" = "xno"], [ ADD_TO_BUILD_LIST([cmath])])
+      AS_IF([test "x$has_wcslib" = "xno"], [ ADD_TO_BUILD_LIST([wcslib])])
+      AS_IF([test "x$has_cfitsio" = "xno"], [ ADD_TO_BUILD_LIST([cfitsio])])
+      AS_IF([test "x$has_libtiff" = "xno"], [ ADD_TO_BUILD_LIST([libtiff])])
+      AS_IF([test "x$has_libjpeg" = "xno"], [ ADD_TO_BUILD_LIST([libjpeg])])
+      AS_IF([test "x$has_gslcblas" = "xno"], [ ADD_TO_BUILD_LIST([gslcblas])])
+
+      AS_IF([test "x$has_curl" = "xno"], [ ADD_TO_BUILD_LIST([curl])])
+      AS_IF([test "x$has_ds9" = "xno"], [ ADD_TO_BUILD_LIST([ds9])])
+      AS_IF([test "x$has_topcat" = "xno"], [ ADD_TO_BUILD_LIST([topcat])])
+      [cd contrib && ./bootstrap && make && cd ..]
+      [missing_mandatory = "no"]
+       ])
 
 
 # If any necessary dependency is missing inform the user and abort.
