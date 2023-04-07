@@ -73,7 +73,16 @@ libtiff: libtiff-4.4.0.tar.gz
 	cd libtiff && ./configure  && make -j$(nproc) && sudo  make install
 	cd $(CONTRIB_DIR) && touch .buildlibtiff
 
-.buildlibjpeg:
+libjpeg-9e.tar.gz:
+	$(call download,$(LIBJPEG_URL))
+
+libjpeg: libjpeg-9e.tar.gz
+	$(call UNPACK,libjpeg-9e.tar.gz,libjpeg)
+
+.buildlibjpeg: libjpeg
+	cd libjpeg && ./configure  && make -j$(nproc) && sudo  make install
+	cd $(CONTRIB_DIR) && touch .buildlibjpeg
+
 .buildgslcblas:
 .buildds9:
 .buildtopcat:
