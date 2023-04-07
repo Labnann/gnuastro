@@ -42,7 +42,17 @@ cfitsio: cfitsio-4.2.0.tar.gz
 	cd cfitsio && ./configure  && make -j$(nproc) && sudo  make install
 	cd $(CONTRIB_DIR) && touch .buildcfitsio
 
-.buildlibgit2:
+libgit2-1.6.3.tar.gz:
+	$(call download,$(LIBGIT2_URL))
+
+libgit2: libgit2-1.6.3.tar.gz
+	$(call UNPACK,libgit2-1.6.3.tar.gz,libgit2)
+
+.buildlibgit2: libgit2
+	cd libgit2 && mkdir -p build && cd build && cmake .. &&\
+	sudo cmake --build . --target install &&\
+	cd $(CONTRIB_DIR) && touch .buildlibgit2
+
 .buildwcslib:
 .buildlibtiff:
 .buildlibjpeg:
