@@ -63,7 +63,16 @@ wcslib: wcslib-7.12.tar.bz2
 	cd wcslib && ./configure  && make -j$(nproc) && sudo  make install
 	cd $(CONTRIB_DIR) && touch .buildwcslib
 
-.buildlibtiff:
+libtiff-4.4.0.tar.gz:
+	$(call download,$(LIBTIFF_URL))
+
+libtiff: libtiff-4.4.0.tar.gz
+	$(call UNPACK,libtiff-4.4.0.tar.gz,libtiff)
+
+.buildlibtiff: libtiff
+	cd libtiff && ./configure  && make -j$(nproc) && sudo  make install
+	cd $(CONTRIB_DIR) && touch .buildlibtiff
+
 .buildlibjpeg:
 .buildgslcblas:
 .buildds9:
