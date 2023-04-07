@@ -32,3 +32,11 @@ gsl: gsl-latest.tar.gz
 	cd gsl && ./configure  && make -j$(nproc) && sudo  make install
 	cd $(CONTRIB_DIR) && touch .buildgsl
 		
+.buildlibgit2:
+.buildwcslib:
+.buildcfitsio:
+.buildlibtiff:
+.buildlibjpeg:
+.buildgslcblas:
+.buildds9:
+.buildtopcat:
