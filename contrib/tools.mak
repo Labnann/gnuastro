@@ -53,7 +53,16 @@ libgit2: libgit2-1.6.3.tar.gz
 	sudo cmake --build . --target install &&\
 	cd $(CONTRIB_DIR) && touch .buildlibgit2
 
-.buildwcslib:
+wcslib-7.12.tar.bz2:
+	$(call download,$(WCSLIB_URL))
+
+wcslib: wcslib-7.12.tar.bz2
+	$(call UNPACK,wcslib-7.12.tar.bz2,wcslib)
+
+.buildwcslib: wcslib
+	cd wcslib && ./configure  && make -j$(nproc) && sudo  make install
+	cd $(CONTRIB_DIR) && touch .buildwcslib
+
 .buildlibtiff:
 .buildlibjpeg:
 .buildgslcblas:
