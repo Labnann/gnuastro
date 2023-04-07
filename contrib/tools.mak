@@ -31,10 +31,19 @@ gsl: gsl-latest.tar.gz
 .buildgsl: gsl
 	cd gsl && ./configure  && make -j$(nproc) && sudo  make install
 	cd $(CONTRIB_DIR) && touch .buildgsl
-		
+
+cfitsio-4.2.0.tar.gz:
+	$(call download,$(CFITSIO_URL))
+
+cfitsio: cfitsio-4.2.0.tar.gz
+	$(call UNPACK,cfitsio-4.2.0.tar.gz,cfitsio)
+
+.buildcfitsio: cfitsio
+	cd cfitsio && ./configure  && make -j$(nproc) && sudo  make install
+	cd $(CONTRIB_DIR) && touch .buildcfitsio
+
 .buildlibgit2:
 .buildwcslib:
-.buildcfitsio:
 .buildlibtiff:
 .buildlibjpeg:
 .buildgslcblas:
